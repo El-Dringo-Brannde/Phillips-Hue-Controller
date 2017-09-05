@@ -1,0 +1,24 @@
+{
+  "name": "phillips-hue-controller",
+  "version": "1.0.0",
+  "description": "Silly little project to practice typescript and control my phillips hues at home",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/El-Dringo-Brannde/Phillips-Hue-Controller.git"
+  },
+  "author": "Brandon Dring",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/El-Dringo-Brannde/Phillips-Hue-Controller/issues"
+  },
+  "homepage": "https://github.com/El-Dringo-Brannde/Phillips-Hue-Controller#readme",
+  "dependencies": {
+    "express": "^4.15.4",
+    "huejay": "^1.7.0",
+    "typescript": "^2.5.2"
+  }
+}
