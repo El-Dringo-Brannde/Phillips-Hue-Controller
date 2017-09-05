@@ -27,11 +27,37 @@ var Startup = (function () {
         this.authenticateClient();
     };
     Startup.prototype.authenticateClient = function () {
+        var _this = this;
         this.client.bridge.isAuthenticated()
             .then(function () {
             console.log("User authenticated, welcome!");
+            _this.getCurrentLights();
         })
             .catch(function (err) { return console.log("Hull Breach! " + err); });
+    };
+    Startup.prototype.getCurrentLights = function () {
+        var _this = this;
+        this.client.lights.getAll()
+            .then(function (lights) {
+            setInterval(function () {
+                for (var _i = 0, lights_1 = lights; _i < lights_1.length; _i++) {
+                    var i = lights_1[_i];
+                    _this.changeLightState(i);
+                }
+            }, 5000);
+        });
+    };
+    ;
+    Startup.prototype.changeLightState = function (light) {
+        if (light.type == "Dimmable light")
+            light.on = false;
+        else {
+            light.on = true;
+            light.incrementHue = 6500;
+            light.incrementSaturation = 25;
+            light.transitionTime = 5;
+        }
+        return this.client.lights.save(light);
     };
     return Startup;
 }());
