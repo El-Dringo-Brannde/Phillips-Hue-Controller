@@ -17,8 +17,13 @@
   },
   "homepage": "https://github.com/El-Dringo-Brannde/Phillips-Hue-Controller#readme",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.15.4",
     "huejay": "^1.7.0",
+    "morgan": "^1.8.2",
     "typescript": "^2.5.2"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.26"
   }
 }
