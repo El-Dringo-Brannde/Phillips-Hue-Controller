@@ -1,24 +1,35 @@
 {
-  "name": "phillips-hue-controller",
-  "version": "1.0.0",
-  "description": "Silly little project to practice typescript and control my phillips hues at home",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/El-Dringo-Brannde/Phillips-Hue-Controller.git"
-  },
-  "author": "Brandon Dring",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/El-Dringo-Brannde/Phillips-Hue-Controller/issues"
-  },
-  "homepage": "https://github.com/El-Dringo-Brannde/Phillips-Hue-Controller#readme",
-  "dependencies": {
-    "express": "^4.15.4",
-    "huejay": "^1.7.0",
-    "typescript": "^2.5.2"
-  }
+   "name": "phillips-hue-controller",
+   "version": "1.0.0",
+   "description": "Silly little project to practice typescript and control my phillips hues at home",
+   "main": "index.js",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "electron .",
+      "build-OSX": "electron-packager ./ Hue_Controller --platform=darwin --arch-x64 --overwrite --icon=./icons/lightbulb_app_icon.icns"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/El-Dringo-Brannde/Phillips-Hue-Controller.git"
+   },
+   "author": "Brandon Dring",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/El-Dringo-Brannde/Phillips-Hue-Controller/issues"
+   },
+   "homepage": "https://github.com/El-Dringo-Brannde/Phillips-Hue-Controller#readme",
+   "dependencies": {
+      "body-parser": "^1.17.2",
+      "electron": "^1.7.6",
+      "electron-packager": "^9.0.1",
+      "express": "^4.15.4",
+      "huejay": "^1.7.0",
+      "morgan": "^1.8.2",
+      "typescript": "^2.5.2"
+   },
+   "devDependencies": {
+      "@types/node": "^8.0.26",
+      "electron": "^1.7.6",
+      "electron-prebuilt": "^1.4.13"
+   }
 }
