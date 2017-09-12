@@ -42,7 +42,7 @@ class trayIcon {
    private initTrayIcon(): void {
       app.on('ready', () => {
          this.bw = new BrowserWindow({ transparent: true, frame: false, show: false })
-         this.appIcon = new Tray(path.join(__dirname, 'lightbulb.png'));
+         this.appIcon = new Tray(path.join(__dirname, './icons/lightbulb.png'));
          this.contextMenu = Menu.buildFromTemplate([{
             label: "Cycle colors",
             type: "checkbox",

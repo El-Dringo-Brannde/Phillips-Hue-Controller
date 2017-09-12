@@ -30,7 +30,7 @@ var trayIcon = (function () {
         var _this = this;
         app.on('ready', function () {
             _this.bw = new BrowserWindow({ transparent: true, frame: false, show: false });
-            _this.appIcon = new Tray(path.join(__dirname, 'lightbulb.png'));
+            _this.appIcon = new Tray(path.join(__dirname, './icons/lightbulb.png'));
             _this.contextMenu = Menu.buildFromTemplate([{
                     label: "Cycle colors",
                     type: "checkbox",
