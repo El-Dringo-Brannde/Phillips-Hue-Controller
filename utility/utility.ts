@@ -1,5 +1,18 @@
 module.exports = class utility {
-   public static cie_to_rgb(x: number, y: number, brightness: number) {
+   public static hex_to_rgb(hexVal: string): Array<number> {
+      return hexVal.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i
+         , (m, r, g, b) => '#' + r + r + g + g + b + b)
+         .substring(1).match(/.{2}/g)
+         .map(x => parseInt(x, 16))
+   }
+
+   public static hex_to_cie(hexVal: string): Array<number> {
+      let rgbVal = this.hex_to_rgb(hexVal)
+      return this.rgb_to_cie(rgbVal[0], rgbVal[1], rgbVal[2])
+   }
+
+
+   public static cie_to_rgb(x: number, y: number, brightness: number): Array<number> {
       //Set to maximum brightness if no custom value was given (Not the slick ECMAScript 6 way for compatibility reasons)
       if (brightness === undefined) {
          brightness = 254;
@@ -55,7 +68,7 @@ module.exports = class utility {
 
       return [red, green, blue];
    }
-   public static rgb_to_cie(red, green, blue) {
+   public static rgb_to_cie(red, green, blue): Array<number> {
       //Apply a gamma correction to the RGB values, which makes the color more vivid and more the like the color displayed on the screen of your device
       var red1 = (red > 0.04045) ? Math.pow((red + 0.055) / (1.0 + 0.055), 2.4) : (red / 12.92);
       var green1 = (green > 0.04045) ? Math.pow((green + 0.055) / (1.0 + 0.055), 2.4) : (green / 12.92);

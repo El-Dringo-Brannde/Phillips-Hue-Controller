@@ -1,9 +1,11 @@
 let hueJay = require("huejay");
-let util = require("./utility");
+let util = require("./../utility/utility");
 
 module.exports = class Startup {
    private client;
    private username = require("./username")
+   private interval;
+
    constructor() {
       this.discoverBridges();
    }
@@ -33,14 +35,14 @@ module.exports = class Startup {
          .catch(err => console.log(`Hull Breach! ${err}`))
    }
 
-   private setRGBColor(): void {
-      let newXY = util.rgb_to_cie(255, 39, 60); //red
+   public setRGBColor(newCIE: Array<number>): void {
+      // let newXY = util.rgb_to_cie(r, g, b); //red
       this.client.lights.getAll()
          .then(lights => {
             for (let light of lights) {
                if (light.type != "Dimmable light") {
                   light.on = true
-                  light.xy = util.rgb_to_cie(0, 0, 139); // red
+                  light.xy = newCIE
                   light.transitionTime = 5;
                } else
                   light.on = false;
@@ -48,6 +50,7 @@ module.exports = class Startup {
             }
          })
    }
+
    private morningMode(): void {
       this.client.lights.getAll()
          .then(lights => {
@@ -62,10 +65,15 @@ module.exports = class Startup {
             }
          })
    }
+
+   private stopInterval(): void {
+      clearInterval(this.interval)
+   }
+
    private lateNightCoding(): void {
       this.client.lights.getAll()
          .then(lights => {
-            setInterval(() => {
+            this.interval = setInterval(() => {
                for (let light of lights) {
                   if (light.type != "Dimmable light") {
                      light.on = true
