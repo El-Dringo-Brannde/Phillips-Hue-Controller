@@ -1,5 +1,5 @@
 var hueJay = require("huejay");
-var util = require("./utility");
+var util = require("./../utility/utility");
 module.exports = (function () {
     function Startup() {
         this.username = require("./username");
@@ -30,16 +30,16 @@ module.exports = (function () {
         })
             .catch(function (err) { return console.log("Hull Breach! " + err); });
     };
-    Startup.prototype.setRGBColor = function () {
+    Startup.prototype.setRGBColor = function (newCIE) {
         var _this = this;
-        var newXY = util.rgb_to_cie(255, 39, 60); //red
+        // let newXY = util.rgb_to_cie(r, g, b); //red
         this.client.lights.getAll()
             .then(function (lights) {
             for (var _i = 0, lights_1 = lights; _i < lights_1.length; _i++) {
                 var light = lights_1[_i];
                 if (light.type != "Dimmable light") {
                     light.on = true;
-                    light.xy = util.rgb_to_cie(0, 0, 139); // red
+                    light.xy = newCIE;
                     light.transitionTime = 5;
                 }
                 else
@@ -65,11 +65,14 @@ module.exports = (function () {
             }
         });
     };
+    Startup.prototype.stopInterval = function () {
+        clearInterval(this.interval);
+    };
     Startup.prototype.lateNightCoding = function () {
         var _this = this;
         this.client.lights.getAll()
             .then(function (lights) {
-            setInterval(function () {
+            _this.interval = setInterval(function () {
                 for (var _i = 0, lights_3 = lights; _i < lights_3.length; _i++) {
                     var light = lights_3[_i];
                     if (light.type != "Dimmable light") {

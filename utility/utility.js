@@ -1,6 +1,15 @@
 module.exports = (function () {
     function utility() {
     }
+    utility.hex_to_rgb = function (hexVal) {
+        return hexVal.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, function (m, r, g, b) { return '#' + r + r + g + g + b + b; })
+            .substring(1).match(/.{2}/g)
+            .map(function (x) { return parseInt(x, 16); });
+    };
+    utility.hex_to_cie = function (hexVal) {
+        var rgbVal = this.hex_to_rgb(hexVal);
+        return this.rgb_to_cie(rgbVal[0], rgbVal[1], rgbVal[2]);
+    };
     utility.cie_to_rgb = function (x, y, brightness) {
         //Set to maximum brightness if no custom value was given (Not the slick ECMAScript 6 way for compatibility reasons)
         if (brightness === undefined) {

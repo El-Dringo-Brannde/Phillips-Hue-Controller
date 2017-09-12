@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 let hue = require('./hueController')
 
 let hueController = new hue()
+
 console.log(hueController)
 
 // Creates and configures an ExpressJS web server.
