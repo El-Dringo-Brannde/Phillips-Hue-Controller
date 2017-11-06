@@ -2,19 +2,18 @@ const {
    app,
    Tray,
    Menu,
-   menuItem,
    BrowserWindow,
    TouchBar
 } = require('electron');
 const path = require('path');
 const utility = require("./utility/utility")
 const hueController = require("./controllers/huecontroller")
-
+let trayHack = null;
 let { TouchBarColorPicker, TouchBarLabel } = TouchBar
 let controller = new hueController();
 class trayIcon {
    public contextMenu;
-   private appIcon;
+   private appIcon = null;
    private bw;
    constructor() {
       this.initTrayIcon();
@@ -34,15 +33,19 @@ class trayIcon {
          })
       ]);
       this.bw.setTouchBar(tb)
-      this.appIcon.on('mouse-enter', () => this.bw.show())
-      this.appIcon.on("mouse-leave", () => this.bw.hide())
+      this.appIcon.on('click', () => {
+         this.bw.show();
+         this.appIcon.popUpContextMenu(this.contextMenu)
+         this.bw.hide();
+      });
    }
 
 
    private initTrayIcon(): void {
       app.on('ready', () => {
          this.bw = new BrowserWindow({ transparent: true, frame: false, show: false })
-         this.appIcon = new Tray(path.join(__dirname, './icons/lightbulb.png'));
+         // console.log(./icons/lightbulb.png)
+         this.appIcon = new Tray('./icons/lightbulb.png');
          this.contextMenu = Menu.buildFromTemplate([{
             label: "Cycle colors",
             type: "checkbox",
@@ -60,7 +63,7 @@ class trayIcon {
             selector: 'terminate:',
          }
          ]);
-         this.appIcon.setContextMenu(this.contextMenu);
+         this.appIcon.setToolTip('Control Hue Lights')
          app.dock.hide();
          this.initTouchBar();
       });

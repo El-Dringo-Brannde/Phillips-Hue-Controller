@@ -23,6 +23,8 @@
       "electron": "^1.7.6",
       "electron-packager": "^9.0.1",
       "express": "^4.15.4",
+      "gulp": "^3.9.1",
+      "gulp-typescript": "^3.2.3",
       "huejay": "^1.7.0",
       "morgan": "^1.8.2",
       "typescript": "^2.5.2"
