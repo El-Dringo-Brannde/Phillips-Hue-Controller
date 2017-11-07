@@ -7,7 +7,6 @@ gulp.task("build", function () {
    return tsProject.src()
       .pipe(tsProject())
       .js.pipe(gulp.dest("dist"));
-
 });
 
 gulp.task('move', function () {
@@ -19,14 +18,5 @@ gulp.task('watch', function () {
    gulp.watch("src/**/*.ts", ['build', 'move']);
 });
 
-gulp.task("start", function () {
-   // exec('electron dist/')
-});
 
-gulp.task("restart", function () {
-   gulp.watch(["src/**/*.ts"], function () {
-      // exec('electron dist/')
-   });
-});
-
-gulp.task('default', ['build', 'move', 'watch', 'start', "restart"]);
+gulp.task('default', ['build', 'move', 'watch']);
