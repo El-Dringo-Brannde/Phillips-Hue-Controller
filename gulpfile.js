@@ -1,7 +1,6 @@
 var gulp = require("gulp");
 var ts = require("gulp-typescript");
 var tsProject = ts.createProject("tsconfig.json");
-var exec = require('child_process').exec;
 
 gulp.task("build", function () {
    return tsProject.src()
