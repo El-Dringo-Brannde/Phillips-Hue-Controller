@@ -1,22 +1,20 @@
-module.exports = (function () {
-    function utility() {
-    }
-    utility.hex_to_rgb = function (hexVal) {
-        return hexVal.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, function (m, r, g, b) { return '#' + r + r + g + g + b + b; })
+module.exports = class colorCalc {
+    static hex_to_rgb(hexVal) {
+        return hexVal.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, (m, r, g, b) => '#' + r + r + g + g + b + b)
             .substring(1).match(/.{2}/g)
-            .map(function (x) { return parseInt(x, 16); });
-    };
-    utility.hex_to_cie = function (hexVal) {
-        var rgbVal = this.hex_to_rgb(hexVal);
+            .map(x => parseInt(x, 16));
+    }
+    static hex_to_cie(hexVal) {
+        let rgbVal = this.hex_to_rgb(hexVal);
         return this.rgb_to_cie(rgbVal[0], rgbVal[1], rgbVal[2]);
-    };
-    utility.cie_to_rgb = function (x, y, brightness) {
+    }
+    static cie_to_rgb(x, y, brightness) {
         //Set to maximum brightness if no custom value was given (Not the slick ECMAScript 6 way for compatibility reasons)
         if (brightness === undefined) {
             brightness = 254;
         }
         var z = 1.0 - x - y;
-        var Y = (brightness / 254).toFixed(2);
+        let Y = (brightness / 254).toFixed(2);
         var X = (Y / y) * x;
         var Z = (Y / y) * z;
         //Convert to RGB using Wide RGB D65 conversion
@@ -54,8 +52,8 @@ module.exports = (function () {
         if (isNaN(blue))
             blue = 0;
         return [red, green, blue];
-    };
-    utility.rgb_to_cie = function (red, green, blue) {
+    }
+    static rgb_to_cie(red, green, blue) {
         //Apply a gamma correction to the RGB values, which makes the color more vivid and more the like the color displayed on the screen of your device
         var red1 = (red > 0.04045) ? Math.pow((red + 0.055) / (1.0 + 0.055), 2.4) : (red / 12.92);
         var green1 = (green > 0.04045) ? Math.pow((green + 0.055) / (1.0 + 0.055), 2.4) : (green / 12.92);
@@ -72,6 +70,5 @@ module.exports = (function () {
         if (isNaN(y))
             y = 0;
         return [parseFloat(x), parseFloat(y)];
-    };
-    return utility;
-}());
+    }
+};

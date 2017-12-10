@@ -1,4 +1,4 @@
-module.exports = class utility {
+module.exports = class colorCalc {
    public static hex_to_rgb(hexVal: string): Array<number> {
       return hexVal.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i
          , (m, r, g, b) => '#' + r + r + g + g + b + b)
