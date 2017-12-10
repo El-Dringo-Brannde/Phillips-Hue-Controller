@@ -1,11 +1,11 @@
 let { TouchBar } = require('electron');
 let { TouchBarColorPicker, TouchBarLabel, TouchBarSpacer, TouchBarSegmentedControl, TouchBarButton } = TouchBar;
-var touchBarLabel = new TouchBarLabel();
-var lights = require('./../controllers/lightController');
-var util = require('./../utility/utility');
-touchBarLabel.label = "Choose a color ➡️";
+var hueLights = require('./../controllers/hueLights');
+var colorCalc = require('./../utility/colorCalc');
 class touchBar {
     constructor() {
+        this.label = new TouchBarLabel();
+        this.label.label = "Choose a color ➡️";
         this.buildTouchBar();
     }
     get TB() {
@@ -14,20 +14,17 @@ class touchBar {
     buildTouchBar() {
         this.touchBar = new TouchBar({
             items: [
-                touchBarLabel,
+                this.label,
                 new TouchBarColorPicker({
                     change: color => {
-                        // this.touchBar.contextMenu.items[0].checked = false;
-                        lights.stopInterval();
-                        lights.setRGBColor(util.hex_to_cie(color));
+                        hueLights.stopInterval();
+                        hueLights.setRGBColor(colorCalc.hex_to_cie(color));
                     }
                 }),
                 new TouchBarSpacer({ size: 'flexible' }),
                 new TouchBarButton({
                     label: 'Cycle Lights',
-                    click: () => {
-                        lights.cycleLights();
-                    }
+                    click: () => hueLights.cycleLights()
                 }),
                 new TouchBarSpacer({ size: 'flexible' }),
                 new TouchBarSegmentedControl({
@@ -36,11 +33,10 @@ class touchBar {
                         { label: 'Lights Off' },
                     ],
                     change: (selected, isSelected) => {
-                        console.log(selected);
                         if (selected == 1)
-                            lights.turnOffAllLights();
+                            hueLights.turnOffAllLights();
                         else
-                            lights.turnOnAllLights();
+                            hueLights.turnOnAllLights();
                     }
                 })
             ]

@@ -1,14 +1,13 @@
 let { Menu } = require('electron');
-var controller = require('./../controllers/lightController');
-console.log(controller);
+var hueLights = require('./../controllers/hueLights');
 var builtMenu = Menu.buildFromTemplate([{
         label: "All Lights Off",
         type: "checkbox",
         checked: false,
         click: () => {
-            controller.stopInterval();
-            controller.lightState(true);
-            controller.turnOffAllLights();
+            hueLights.stopInterval();
+            hueLights.lightState(true);
+            hueLights.turnOffAllLights();
         }
     },
     {
@@ -16,9 +15,9 @@ var builtMenu = Menu.buildFromTemplate([{
         type: "checkbox",
         checked: false,
         click: () => {
-            controller.stopInterval();
-            controller.lightState(false);
-            controller.turnOnAllLights();
+            hueLights.stopInterval();
+            hueLights.lightState(false);
+            hueLights.turnOnAllLights();
         }
     },
     {

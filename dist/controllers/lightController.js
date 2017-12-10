@@ -1,16 +1,10 @@
-var hue = require('./huecontroller');
-var util = require('./../utility/utility');
+var colorCalc = require('./../utility/colorCalc');
 var emitter = require('./../utility/events');
 class lightController {
     constructor() {
-        emitter.on('authenticated', () => {
-            console.log('lakdsjf');
-            this.client = hue.clientInst;
-        });
-    }
-    get classInst() {
-        return this;
-    }
+        this.hueClient = require('./huecontroller');
+        emitter.on('authenticated', () => this.client = this.hueClient.clientInst);
+    } //instantiate class after the hue bridge has authenticated the user on the bridge
     set lightState(state) {
         this.lightStates = state;
     }
@@ -33,7 +27,7 @@ class lightController {
             .then(lights => {
             for (let light of lights) {
                 if (light.type != 'Dimmable light')
-                    light.xy = util.rgb_to_cie(255, 255, 255); // white
+                    light.xy = colorCalc.rgb_to_cie(255, 255, 255); // white
                 light.on = true;
                 light.brightness = 254;
                 this.client.lights.save(light);
