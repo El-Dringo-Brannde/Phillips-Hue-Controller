@@ -19,7 +19,7 @@
    },
    "homepage": "https://github.com/El-Dringo-Brannde/Phillips-Hue-Controller#readme",
    "dependencies": {
-      "electron": "^11.0.3",
+      "electron": "^11.5.0",
       "electron-packager": "^15.1.0",
       "gulp": "^3.9.1",
       "gulp-typescript": "^3.2.3",
